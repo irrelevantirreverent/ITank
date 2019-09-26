@@ -133,7 +133,6 @@ public class BlockTank extends BlockBaseModeled implements IBlockRenderer, IWail
             if (player.getHeldItem(hand).getItem().equals(Item.getItemFromBlock(this))) {
                 for (int i = 0; i < pos.getY() + 4; i++) {
                     if (world.isAirBlock(pos.add(0, i, 0))) {
-                        if (!player.isCreative()) player.getHeldItem(hand).shrink(1);
                         world.setBlockState(pos.up(i), this.getDefaultState(), 3);
                         if (player.getHeldItem(hand).hasTagCompound()) {
                             final TileEntityTank tank = (TileEntityTank) world.getTileEntity(pos.up(i));
@@ -141,6 +140,7 @@ public class BlockTank extends BlockBaseModeled implements IBlockRenderer, IWail
                                 tank.readNBT(player.getHeldItem(hand).getTagCompound().getCompoundTag("TileData"));
                             }
                         }
+                        if (!player.isCreative()) player.getHeldItem(hand).shrink(1);
                         break;
                     } else if (!world.isAirBlock(pos.up(i)) && world.getBlockState(pos.up(i)).getBlock() != this) {
                         break;
